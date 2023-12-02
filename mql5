@@ -1,0 +1,85 @@
+
+// Sun USDCHF - Trading Robot for USDCHF M1 Market
+// Developer: Forex Robot Easy Team
+// Developer's Site: forexroboteasy.com
+
+// Define the necessary input parameters
+input double takeProfit = 10; // Take Profit parameter for each cycle
+input double stopLoss = 5; // Stop Loss parameter for each cycle
+input int leverage = 500; // Leverage for the trading account
+
+// Define the necessary variables
+double accountBalance; // Account balance
+int cycleCount; // Number of cycles
+int copiesSold; // Number of copies sold
+double purchasePrice; // Purchase price
+bool earlyAdoption; // Flag for early adoption
+
+// Calculate the purchase price based on the number of copies sold
+if (copiesSold % 5 == 0) {
+    purchasePrice = 100 * (copiesSold / 5);
+    earlyAdoption = true;
+} else {
+    purchasePrice = 100 * (copiesSold / 5 + 1);
+    earlyAdoption = false;
+}
+
+// Check if the account balance meets the minimum deposit requirement
+if (accountBalance >= 100) {
+    // Calculate the number of cycles based on the account balance
+    cycleCount = MathFloor(accountBalance / (leverage * purchasePrice));
+    
+    // Loop through each cycle
+    for (int i = 0; i < cycleCount; i++) {
+        // Execute the scalping strategy for each cycle
+        bool success = executeScalpingStrategy(takeProfit, stopLoss);
+        
+        // Check if the scalping strategy was successful
+        if (success) {
+            Print('Cycle ', i + 1, ' was successful!');
+        } else {
+            Print('Cycle ', i + 1, ' failed!');
+        }
+    }
+} else {
+    Print('Insufficient account balance. Minimum deposit requirement is $100.');
+}
+
+// Function to execute the scalping strategy for each cycle
+bool executeScalpingStrategy(double tp, double sl) {
+    // Perform market analysis and make informed decisions based on historical data
+    bool decision = analyzeMarket();
+    
+    // Check if the decision is to buy or sell
+    if (decision) {
+        // Execute the buy order with the specified TP and SL
+        bool buySuccess = executeBuyOrder(tp, sl);
+        return buySuccess;
+    } else {
+        // Execute the sell order with the specified TP and SL
+        bool sellSuccess = executeSellOrder(tp, sl);
+        return sellSuccess;
+    }
+}
+
+// Function to analyze the market and make informed decisions
+bool analyzeMarket() {
+    // Perform market analysis using historical data
+    // Implement the logic for leveraging strong recurrences from the past
+    // Return true or false based on the analysis
+    return true;
+}
+
+// Function to execute the buy order with the specified TP and SL
+bool executeBuyOrder(double tp, double sl) {
+    // Implement the code to execute the buy order with the specified TP and SL
+    // Return true or false based on the success of the order execution
+    return true;
+}
+
+// Function to execute the sell order with the specified TP and SL
+bool executeSellOrder(double tp, double sl) {
+    // Implement the code to execute the sell order with the specified TP and SL
+    // Return true or false based on the success of the order execution
+    return true;
+}
